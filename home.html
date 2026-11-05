@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Jumonkey - E-Waste Adventure</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Pixel font for headings/buttons -->
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <main id="game-screen">
+        <div id="game-area">
+
+            <!-- Parallax background layers (far -> near). data-speed = how fast each scrolls vs. the monkey -->
+            <div class="parallax" id="layer-sky"         data-speed="0"></div>
+            <div class="parallax" id="layer-trees-back"  data-speed="0.2"></div>
+            <div class="parallax" id="layer-trees-front" data-speed="0.5"></div>
+            <div class="parallax" id="layer-ground"      data-speed="1"></div>
+
+            <!-- Side-scrolling world -->
+            <div id="world">
+                <img
+                    id="player"
+                    src="assets/default.png"
+                    alt="Player character"
+                >
+            </div>
+
+            <!-- Game HUD -->
+            <div id="game-hud">
+
+                <div id="banana-hud">
+                    <div id="banana-count">
+                        <img class="banana-small" src="assets/banana.png" alt="Bananas collected:">
+                        <span id="banana-total" style="font-size: large;">0</span>
+                    </div>
+                </div>
+
+                <div class="game-progress">
+                    <span id="progress">ADVENTURE 0 / 6</span>
+                </div>
+
+            </div>
+
+            <!-- Start screen -->
+            <div id="start-message" class="game-panel">
+                <h2>Welcome, Eco Explorer!</h2>
+
+                <p>
+                    Get ready for an adventure!
+                </p>
+
+                <p>
+                    Explore the world, collect bananas,
+                    and learn how to protect the environment.
+                </p>
+
+                <p class="controls-text">
+                    Use ← → or A / D to move.
+                </p>
+
+                <button id="start-button">
+                    Start Adventure!
+                </button>
+
+                <i class="spr tl" data-s="flowerPink"></i>
+                <i class="spr tr" data-s="flowerWhite"></i>
+                <i class="spr bl" data-s="flowerWhite"></i>
+                <i class="spr br" data-s="flowerPink"></i>
+            </div>
+
+            <!-- Question dialogue box -->
+            <div id="question-box" class="hidden">
+
+                <div class="dialogue-content">
+                    <div class="dialogue-heading">
+                        <h2 id="question-title">E-Waste Challenge!</h2>
+                    </div>
+
+                    <p id="question-text"></p>
+
+                    <div id="answer-options"></div>
+
+                    <p id="feedback" aria-live="polite"></p>
+
+                    <div class="dialogue-footer">
+                        <button id="continue-button" class="hidden">
+                            Continue Adventure →
+                        </button>
+                    </div>
+                </div>
+
+                <i class="spr tl" data-s="flowerPink"></i>
+                <i class="spr tr" data-s="flowerWhite"></i>
+                <i class="spr bl" data-s="flowerWhite"></i>
+                <i class="spr br" data-s="flowerPink"></i>
+                <i class="spr leaf1" data-s="leaf"></i>
+                <i class="spr leaf2" data-s="leaf"></i>
+
+            </div>
+
+        </div>
+    </main>
+</body>
+</html>

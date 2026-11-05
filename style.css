@@ -1,0 +1,681 @@
+/* COLOR PALETTE */
+:root {
+    --dark-brown: #49352B;
+    --brown: #76543D;
+    --caramel: #B98250;
+    --cream: #F5E6C8;
+    --light-cream: #FFF8E9;
+    --banana: #F4C95D;
+    --soft-green: #A6B887;
+    --muted-green: #607B48;
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--dark-brown);
+}
+
+/* GAME SCREEN */
+#game-screen {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#game-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background-color: #8B765C;
+}
+
+#world {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 3000px;
+    height: 100%;
+
+    transform: translateX(0);
+    will-change: transform;
+}
+
+/* PLAYER CHARACTER */
+#player {
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    left: 100px;
+    bottom: 100px;
+
+    object-fit: contain;
+    image-rendering: pixelated;
+
+    z-index: 3;
+    transform-origin: center;
+    user-select: none;
+    pointer-events: none;
+}
+
+/* GAME HUD */
+
+#game-hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    z-index: 10;
+    pointer-events: none;
+
+    font-family: 'Fredoka', sans-serif;
+}
+
+/* BANANA HUD */
+#banana-hud {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    background: var(--cream);
+    border: 3px solid var(--brown);
+    border-radius: 14px;
+
+    padding: 9px 13px;
+
+    box-shadow: 0 4px 0 var(--dark-brown);
+}
+
+#bananas {
+    display: flex;
+    gap: 5px;
+}
+
+#bananas span {
+    font-size: 23px;
+    line-height: 1;
+    filter: drop-shadow(1px 2px 0 rgba(73, 53, 43, 0.2));
+}
+
+#banana-count {
+    color: var(--dark-brown);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* PROGRESS HUD */
+.game-progress {
+    background: var(--cream);
+    color: var(--dark-brown);
+
+    border: 3px solid var(--brown);
+    border-radius: 14px;
+
+    padding: 10px 15px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    box-shadow: 0 4px 0 var(--dark-brown);
+}
+
+/* =====================================
+   START SCREEN
+===================================== */
+
+.game-panel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: min(540px, calc(100% - 36px));
+
+    background: var(--light-cream);
+    color: var(--dark-brown);
+
+    border: 4px solid var(--brown);
+    border-radius: 20px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 5px 0 var(--dark-brown),
+        0 8px 18px rgba(45, 30, 20, 0.25);
+
+    text-align: center;
+    z-index: 15;
+
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.7;
+}
+
+#start-message h2 {
+    color: var(--brown);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+#start-message p {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+#start-message .controls-text {
+    color: var(--muted-green);
+    font-size: 14px;
+    margin-top: 14px;
+}
+
+/* START BUTTON */
+#start-button {
+    margin-top: 12px;
+    padding: 13px 24px;
+
+    background: var(--banana);
+    border: 3px solid var(--brown);
+    border-radius: 12px;
+
+    color: var(--dark-brown);
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 0 var(--brown);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+#start-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--brown);
+}
+
+/* QUESTION / DIALOGUE BOX */
+
+#question-box {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: min(760px, calc(100% - 36px));
+
+    background: var(--light-cream);
+    color: var(--dark-brown);
+
+    border: 4px solid var(--brown);
+    border-radius: 18px;
+
+    padding: 20px 25px;
+
+    box-shadow:
+        0 5px 0 var(--dark-brown),
+        0 8px 18px rgba(45, 30, 20, 0.25);
+
+    z-index: 20;
+
+    font-family: 'Nunito', sans-serif;
+}
+
+/* DIALOGUE HEADING */
+.dialogue-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 8px;
+}
+
+.dialogue-icon {
+    font-size: 25px;
+}
+
+#question-title {
+    color: var(--brown);
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 25px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+/* QUESTION TEXT */
+#question-text {
+    color: var(--dark-brown);
+
+    font-family: 'Nunito', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/* ANSWER OPTIONS */
+#answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+#answer-options button {
+    width: 100%;
+
+    background: #F1E1C5;
+    border: 2px solid #D1B38B;
+    border-radius: 12px;
+
+    color: var(--dark-brown);
+
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+
+    text-align: left;
+
+    padding: 11px 14px;
+    cursor: pointer;
+
+    transition:
+        background 0.15s,
+        transform 0.15s,
+        border-color 0.15s;
+}
+
+#answer-options button::before {
+    content: "▶ ";
+    color: var(--caramel);
+    opacity: 0;
+}
+
+#answer-options button:hover:not(:disabled) {
+    background: #F4DFAE;
+    border-color: var(--caramel);
+    transform: translateX(4px);
+}
+
+#answer-options button:hover:not(:disabled)::before {
+    opacity: 1;
+}
+
+#answer-options button:disabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+/* FEEDBACK */
+#feedback {
+    color: var(--muted-green);
+
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+
+    line-height: 1.5;
+    margin-top: 12px;
+}
+
+/* DIALOGUE FOOTER */
+.dialogue-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* CONTINUE BUTTON */
+#continue-button {
+    margin-top: 14px;
+    padding: 11px 20px;
+
+    background: var(--banana);
+    border: 3px solid var(--brown);
+    border-radius: 12px;
+
+    color: var(--dark-brown);
+
+    font-family: 'Fredoka', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 0 var(--brown);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+#continue-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--brown);
+}
+
+/* HIDDEN ELEMENTS */
+.hidden {
+    display: none !important;
+}
+
+
+
+@media (max-width: 600px) {
+    #game-hud {
+        top: 12px;
+        left: 12px;
+        right: 12px;
+    }
+
+    #banana-hud {
+        padding: 7px 9px;
+    }
+
+    #bananas span {
+        font-size: 18px;
+    }
+
+    #banana-count {
+        font-size: 12px;
+    }
+
+    .game-progress {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .game-panel {
+        padding: 20px;
+    }
+
+    #start-message h2 {
+        font-size: 24px;
+    }
+
+    #start-message p {
+        font-size: 14px;
+    }
+
+    #question-box {
+        bottom: 12px;
+        padding: 15px;
+    }
+
+    #question-title {
+        font-size: 21px;
+    }
+
+    #question-text {
+        font-size: 15px;
+    }
+
+    #answer-options button {
+        font-size: 14px;
+        padding: 9px 11px;
+    }
+
+    #feedback {
+        font-size: 13px;
+    }
+}
+
+
+/* PIXEL JUNGLE TEXTBOX */
+
+:root {
+    --panel-green: #E6D0A6;
+    --panel-green-light: #F4E6C6;
+    --panel-green-dark: #C9AE80;
+    --pixel: 4px;
+}
+
+/* Shared pixel-border look: 4 hard shadows = notched corners, 2 inset = bevel */
+#question-box,
+.game-panel {
+    background: var(--panel-green);
+    border: 0;
+    border-radius: 0;
+    color: var(--dark-brown);
+    box-shadow:
+        0 calc(-1 * var(--pixel)) 0 0 var(--dark-brown),
+        0 var(--pixel) 0 0 var(--dark-brown),
+        calc(-1 * var(--pixel)) 0 0 0 var(--dark-brown),
+        var(--pixel) 0 0 0 var(--dark-brown),
+        inset 0 var(--pixel) 0 0 var(--panel-green-light),
+        inset 0 calc(-1 * var(--pixel)) 0 0 var(--panel-green-dark);
+}
+
+#question-box {
+    padding: 24px 28px;
+}
+
+.dialogue-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Pixel font for headings and buttons */
+#question-title,
+#start-message h2,
+#continue-button,
+#start-button {
+    font-family: 'Pixelify Sans', 'Fredoka', sans-serif;
+}
+
+#question-title { color: var(--dark-brown); font-size: 26px; }
+#start-message h2 { color: var(--dark-brown); }
+#question-text { font-size: 17px; }
+
+/* Answers = chunky cream pixel blocks */
+#question-box #answer-options button {
+    background: var(--light-cream);
+    border: 0;
+    border-radius: 0;
+    box-shadow:
+        0 -3px 0 0 var(--dark-brown),
+        0 3px 0 0 var(--dark-brown),
+        -3px 0 0 0 var(--dark-brown),
+        3px 0 0 0 var(--dark-brown);
+    margin: 3px;
+    width: calc(100% - 6px);
+}
+
+#question-box #answer-options button::before {
+    content: "\25B6\00a0";
+    color: var(--brown);
+}
+
+#question-box #answer-options button:hover:not(:disabled) {
+    background: var(--banana);
+    border-color: transparent;
+    transform: translateX(4px);
+}
+
+/* Feedback gets a cream label so it's readable on green */
+#feedback {
+    color: var(--dark-brown);
+    background: var(--light-cream);
+    padding: 8px 12px;
+    box-shadow: 0 0 0 3px var(--dark-brown);
+    margin: 14px 3px 0;
+}
+#feedback:empty { display: none; }
+
+/* Buttons: square pixel style */
+#continue-button,
+#start-button {
+    border: 0;
+    border-radius: 0;
+    background: var(--banana);
+    box-shadow:
+        0 -3px 0 0 var(--dark-brown),
+        0 3px 0 0 var(--dark-brown),
+        -3px 0 0 0 var(--dark-brown),
+        3px 0 0 0 var(--dark-brown),
+        inset 0 -4px 0 0 #d9a93c;
+    margin-top: 18px;
+}
+#continue-button:hover,
+#start-button:hover { transform: translateY(-2px); background: #f9d878; }
+
+/* Flower + leaf decorations (drawn by the sprite code in script.js) */
+.spr {
+    position: absolute;
+    pointer-events: none;
+    image-rendering: pixelated;
+    z-index: 2;
+}
+.spr.tl    { top: -16px;    left: -16px; }
+.spr.tr    { top: -16px;    right: -10px; }
+.spr.bl    { bottom: -12px; left: -16px; }
+.spr.br    { bottom: -12px; right: -10px; }
+.spr.leaf1 { top: 28px;     left: -14px; }
+.spr.leaf2 { bottom: 28px;  right: -14px; }
+
+@media (max-width: 600px) {
+    #question-box { padding: 18px 16px; }
+    #question-title { font-size: 20px; }
+}
+
+
+/* Textbox positioning */
+
+#question-box {
+    left: 0;
+    transform: none;
+    width: min(640px, calc(100% - 36px));
+}
+
+/* Pixel speech-bubble tail pointing down at the player */
+#question-box::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: calc(var(--tail-x, 50%) - 12px);
+    width: 4px;
+    height: 4px;
+    background: var(--panel-green);
+    box-shadow:
+        /* fill */
+        4px 0 0 var(--panel-green), 8px 0 0 var(--panel-green),
+        12px 0 0 var(--panel-green), 16px 0 0 var(--panel-green),
+        20px 0 0 var(--panel-green),
+        4px 4px 0 var(--panel-green), 8px 4px 0 var(--panel-green),
+        12px 4px 0 var(--panel-green), 16px 4px 0 var(--panel-green),
+        8px 8px 0 var(--panel-green), 12px 8px 0 var(--panel-green),
+        /* outline */
+        0 4px 0 var(--dark-brown), 20px 4px 0 var(--dark-brown),
+        4px 8px 0 var(--dark-brown), 16px 8px 0 var(--dark-brown),
+        8px 12px 0 var(--dark-brown), 12px 12px 0 var(--dark-brown);
+    pointer-events: none;
+}
+
+
+/* Name input */
+#name-input {
+    width: calc(100% - 6px);
+    margin: 3px;
+    padding: 11px 14px;
+
+    background: var(--light-cream);
+    color: var(--dark-brown);
+    border: 0;
+    border-radius: 0;
+    outline: none;
+
+    font-family: 'Pixelify Sans', 'Fredoka', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+
+    box-shadow:
+        0 -3px 0 0 var(--dark-brown),
+        0 3px 0 0 var(--dark-brown),
+        -3px 0 0 0 var(--dark-brown),
+        3px 0 0 0 var(--dark-brown);
+}
+
+#name-input:focus {
+    background: #fff;
+}
+
+#name-input::placeholder {
+    color: var(--caramel);
+}
+
+
+/* The answer the player picked stays highlighted */
+#question-box #answer-options button.chosen:disabled {
+    opacity: 1;
+    background: var(--banana);
+    transform: translateX(4px);
+}
+#question-box #answer-options button.chosen::before {
+    opacity: 1;
+}
+
+
+/* PARALLAX BACKGROUND LAYERS */
+
+.parallax {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    background-repeat: repeat-x;
+    background-position: 0 bottom;
+    background-size: auto 100%;   /* fit the height, keep the pixel ratio */
+    image-rendering: pixelated;
+}
+
+#world { z-index: 1; }   /* the monkey draws on top of every layer */
+
+#layer-sky         { background-image: url("assets/environment/1.Backround.png"); }
+#layer-trees-back  { background-image: url("assets/environment/2.Trees_back.png"); }
+#layer-trees-front { background-image: url("assets/environment/3.Trees_front.png"); }
+#layer-ground      { background-image: url("assets/environment/4.Ground.png"); }
+
+
+/* bananas in hud */
+
+#banana-count {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#banana-count .banana-small {
+    width: 70px;          /* size of the little banana next to the number */
+    height: 70px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+@media (max-width: 600px) {
+    #banana-count .banana-small { width: 14px; height: 14px; }
+}

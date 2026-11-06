@@ -70,8 +70,6 @@ const checkpoints = [500, 1000, 1500, 2000, 2400, 2800];
 // Each answer gives a different number of bananas 
 // The total at the end decides which ending the player gets.
 //
-// A question can have "variants": if an earlier answer matches "when",
-// that variant's question/answers replace the normal ones.
 
 const questions = [
     {
@@ -81,38 +79,23 @@ const questions = [
 
         answers: [
             { text: "new laptop", bananas: 2, response: "[ADD TEXT]" },
-            { text: "refurbished laptop", bananas: 4, response: "[ADD TEXT]" },
-            { text: "iPad with a keyboard", bananas: 3, response: "[ADD TEXT]" },
+            { text: "refurbished laptop", bananas: 4, response: "opting for a refurbished alternative rather than a brand new piece of technology also helps the environment more than you think" },
+            { text: "iPad with a keyboard acessory", bananas: 3, response: "[ADD TEXT]" },
             { text: "desktop/pc", bananas: 1, response: "[ADD TEXT]" }
         ]
     },
-
+    // have this only show if the player bought a laptop
     {
-        title: "Classtime",
+        title: "Help me decide",
         question:
-            "While in my first lecture, I see everyone else has an iPad to take notes on. What do I do?",
+            "I’m the only monkey in my friend group that doesn’t have the newest phone… My phone works fine, but I want to get the new one because everyone else has it. What should I do?",
 
         answers: [
-            { text: "take notes on your laptop", bananas: 4, response: "[ADD TEXT]" },
-            { text: "buy the newest iPad", bananas: 1, response: "[ADD TEXT]" },
-            { text: "buy a refurbished iPad", bananas: 2, response: "[ADD TEXT]" },
-            { text: "take notes on paper", bananas: 4, response: "[ADD TEXT]" }
+            { text: "I need it! Trade in my current phone to buy the newest phone ", bananas: 2, response: "Just because everyone has a new device doesn't mean you need one. Making the most of what you already own can reduce the environmental impact of electronics." },
+            { text: "I deserve at least a small upgrade! Buy a refurbished version of last year’s phone model and properly dispose of the old phone", bananas: 1, response: "Just because everyone has a new device doesn't mean you need one. Making the most of what you already own can reduce the environmental impact of electronics." },
+            { text: "I can afford it. Buy the newest phone for personal use and keep the old one for games", bananas: 1, response: "Just because everyone has a new device doesn't mean you need one. Making the most of what you already own can reduce the environmental impact of electronics." },
+            { text: "My phone is fine. I don’t need to buy a new one", bananas: 4, response: "[ADD TEXT]" }
         ],
-
-        // If the player bought an iPad with a keyboard in the first question,
-        // they already have one, so don't offer laptop / new iPad / refurbished iPad.
-        // MIGHT NEED TO BE CHANGED CAUSE IT JUST AUTO GIVES 4 BANANAS REGARDLESS OF RESPONSE
-        variants: [
-            {
-                when: { question: 0, answer: 2 },
-                question:
-                    "While in my first lecture, I see everyone else has an iPad to take notes on. I already have an iPad with a keyboard. What do I do?",
-                answers: [
-                    { text: "take notes on your iPad with the keyboard", bananas: 4, response: "[ADD TEXT]" },
-                    { text: "take notes on paper", bananas: 4, response: "[ADD TEXT]" }
-                ]
-            }
-        ]
     },
 
     {
@@ -121,51 +104,52 @@ const questions = [
             "While swinging on the vine on my way to school, my phone falls out of my pocket and the screen cracks. What should I do?",
 
         answers: [
-            { text: "repair the phone", bananas: 3, response: "[ADD TEXT]" },
-            { text: "buy the newest iphone 10000000", bananas: 1, response: "[ADD TEXT]" },
-            { text: "buy a refurbished phone", bananas: 2, response: "[ADD TEXT]" },
-            { text: "keep the phone as is", bananas: 4, response: "[ADD TEXT]" }
+            { text: "Great timing, the new BananaPhone 4000 just dropped. Buy the newest smartphone and throw the cracked one in the trash.", bananas: 1, response: "[ADD TEXT]" },
+            { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "[ADD TEXT]" },
+            { text: "I’ve been due for an upgrade anyway! Trade in the cracked phone for some credit towards a new phone.", bananas: 4, response: "[ADD TEXT]" },
+            { text: "My brother might be old enough to have a phone now. This can be his first! Repair it and gift it to your little brother and then get yourself a refurbished newer phone.", bananas: 3, response: "[ADD TEXT]" }
         ]
     },
-
+    
     {
-        title: "4th Year!",
+        title: "Assignments...",
         question:
-            "It is my fourth year of college. I get a call from mama monkey and she wants to get my brother a new phone since he is about to start school. What should I tell her to do?",
+            "I have a drawing assignment for my class due in a couple weeks! Having the newest ULTRAColor Display tablet would make this assignment so easy! ",
 
         answers: [
-            { text: "buy him a new phone", bananas: 1, response: "[ADD TEXT]" },
-            { text: "pass down her phone and buy herself a new one", bananas: 1, response: "[ADD TEXT]" },
-            { text: "no he doesn’t deserve one", bananas: 4, response: "[ADD TEXT]" },
-            { text: "buy him a refurbished phone", bananas: 2, response: "[ADD TEXT]" }
+            { text: "It’s so colorful!! Buy the newest ULTRAColor display tablet. ", bananas: 1, response: "[ADD TEXT]" },
+            { text: "My roommate has a pretty good tablet. I’m sure I could ask him to borrow it for a day. Borrow your friend’s tablet for a day.", bananas: 4, response: "[ADD TEXT]" },
+            { text: "I don’t need the best of the best, but having a tablet would be nice. Buy a refurbished tablet that will last you for the rest of your time at college.", bananas: 2, response: "[ADD TEXT]" },
+            { text: "The assignment never said it had to be digital… Use pen and paper.", bananas: 4, response: "[ADD TEXT]" }
         ]
     },
 
     {
         title: "Hm",
         question:
-            "I'm about to graduate so I purchase an apartment. However, every single lightbulb is out. This is bananas! How do I dispose of these lightbulbs?",
+            "I just graduated and moved into my first apartment. However, while assembling my new lamp, I put the lightbulbs in wrong and now they’re all out. This is bananas! How do you dispose of these lightbulbs?",
 
         answers: [
-            { text: "crush up the lightbulbs and throw it in the recycle bin", bananas: 1, response: "[ADD TEXT]" },
-            { text: "take all the lightbulbs and store them in the corner of my house", bananas: 2, response: "[ADD TEXT]" },
-            { text: "take them to a proper E-waste disposal center", bananas: 4, response: "[ADD TEXT]" },
-            { text: "use them for a craft project", bananas: 3, response: "[ADD TEXT]" }
+            { text: "I’m sure they can just go in the regular recycling… Crush the light bulbs and throw them in your recycling.", bananas: 1, response: "[ADD TEXT]" },
+            { text: "I’m too tired to deal with it right now. I’ll just leave it out for tomorrow.", bananas: 1, response: "[ADD TEXT]" },
+            { text: "These are compact fluorescent lights, which means they could be releasing mercury!! Immediately take the lightbulbs to a nearby hazardous waste collection facility such as Home Depot, IKEA, or Lowes.", bananas: 4, response: "[ADD TEXT]" },
+            { text: "I should contain any toxic chemicals coming from this broken bulb. Seal them in an airtight container and drop it off at a recycling site.", bananas: 3, response: "[ADD TEXT]" }
         ]
     },
 
     {
         title: "Graduation!",
         question:
-            "It’s the end of my 4 years and I graduated! My laptop no longer works and cannot be repaired. How will I dispose of my laptop?",
+            "I graduated college and got a job! The company provided me a brand new laptop to keep. What should I do with my old one that I used during college?",
 
         answers: [
-            { text: "toss it in the trash/recycling", bananas: 1, response: "[ADD TEXT]" },
-            { text: "keep your laptop in a random storage closet", bananas: 2, response: "[ADD TEXT]" },
-            { text: "go to my nearest e-waste disposal site (insert image)", bananas: 4, response: "[ADD TEXT]" },
-            { text: "trade it back for some money.", bananas: 4, response: "[ADD TEXT]" }
+            { text: "Who needs that junk anymore? I just got the newest Macnana laptop! Throw your old laptop in the landfill.", bananas: 1, response: "[ADD TEXT]" },
+            { text: "This still has valuable resources in it! Take it to a certified electronic recycler.", bananas: 3, response: "[ADD TEXT]" },
+            { text: "My brother will be going to college soon and will need to start shopping for laptops. I can give him this instead of him buying a new one. Give the laptop to your little brother.", bananas: 4, response: "[ADD TEXT]" },
+            { text: "You never know when you’ll need this. Keep it in your closet as a backup. ", bananas: 2, response: "[ADD TEXT]" }
         ]
     }
+
 ];
 
 // ENDINGS (checked from the highest minimum down)
@@ -533,24 +517,6 @@ function finishTyping() {
 // add func to click box to skip the typing
 questionBox.addEventListener("click", finishTyping);
 
-// question variants (based on earlier answers)
-
-function getActiveQuestion(index) {
-    const base = questions[index];
-
-    if (base.variants) {
-        const match = base.variants.find(
-            (variant) =>
-                playerChoices[variant.when.question] === variant.when.answer
-        );
-
-        if (match) {
-            return { ...base, ...match };
-        }
-    }
-
-    return base;
-}
 
 // display questions
 function showQuestion(index) {

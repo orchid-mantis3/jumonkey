@@ -517,6 +517,22 @@ function finishTyping() {
 // add func to click box to skip the typing
 questionBox.addEventListener("click", finishTyping);
 
+function getActiveQuestion(index) {
+    const base = questions[index];
+
+    if (base.variants) {
+        const match = base.variants.find(
+            (variant) =>
+                playerChoices[variant.when.question] === variant.when.answer
+        );
+
+        if (match) {
+            return { ...base, ...match };
+        }
+    }
+
+    return base;
+}
 
 // display questions
 function showQuestion(index) {

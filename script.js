@@ -105,7 +105,7 @@ const questions = [
 
         answers: [
             { text: "Great timing, the new BananaPhone 4000 just dropped. Buy the newest smartphone and throw the cracked one in the trash.", bananas: 1, response: "Did you know that Americans throw away 151 million cell phones in a single year, or roughly 416,000 phones per day?" },
-            { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "Nice! It's just screen damage and this is a great way to preserve your phone's lifepsan." },
+            { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "Nice! It's just screen damage so this is a great way to preserve your phone's lifepsan." },
             { text: "I’ve been due for an upgrade anyway! Trade in the cracked phone for some credit towards a new phone.", bananas: 4, response: "A cracked screen doesn't always mean you need a new phone! Repairing your device can help extend its lifespan and avoid the environmental cost of producing a replacement." },
             { text: "My brother might be old enough to have a phone now. This can be his first! Repair it and gift it to your little brother and then get yourself a refurbished newer phone.", bananas: 3, response: "Great job at finding a way to extend your phone's lifepsan and opting for a refurbished phone over a new one. This reduces a lot more e-waste in the longrun than you think, with this mindset." }
         ]

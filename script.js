@@ -78,8 +78,8 @@ const questions = [
             "I am an incoming monkeyman (freshman) at a banaology institute. What device should I buy for school?",
 
         answers: [
-            { text: "new laptop", bananas: 2, response: "[ADD TEXT]" },
-            { text: "refurbished laptop", bananas: 4, response: "opting for a refurbished alternative rather than a brand new piece of technology also helps the environment more than you think" },
+            { text: "new laptop", bananas: 2, response: "Producing just one computer consumes 239kg of fossil fuel, 22kg of chemicals, and 1.5 tons of water." },
+            { text: "refurbished laptop", bananas: 4, response: "Opting for a refurbished alternative rather than a brand new piece of technology also helps the environment more than you think" },
             { text: "iPad with a keyboard acessory", bananas: 3, response: "[ADD TEXT]" },
             { text: "desktop/pc", bananas: 1, response: "[ADD TEXT]" }
         ]
@@ -104,7 +104,7 @@ const questions = [
             "While swinging on the vine on my way to school, my phone falls out of my pocket and the screen cracks. What should I do?",
 
         answers: [
-            { text: "Great timing, the new BananaPhone 4000 just dropped. Buy the newest smartphone and throw the cracked one in the trash.", bananas: 1, response: "[ADD TEXT]" },
+            { text: "Great timing, the new BananaPhone 4000 just dropped. Buy the newest smartphone and throw the cracked one in the trash.", bananas: 1, response: "Did you know that Americans throw away 151 million cell phones in a single year, or roughly 416,000 phones per day?" },
             { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "[ADD TEXT]" },
             { text: "I’ve been due for an upgrade anyway! Trade in the cracked phone for some credit towards a new phone.", bananas: 4, response: "[ADD TEXT]" },
             { text: "My brother might be old enough to have a phone now. This can be his first! Repair it and gift it to your little brother and then get yourself a refurbished newer phone.", bananas: 3, response: "[ADD TEXT]" }

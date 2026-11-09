@@ -104,8 +104,8 @@ const questions = [
             "While swinging on the vine on my way to school, my phone falls out of my pocket and the screen cracks. What should I do?",
 
         answers: [
-            { text: "Great timing, the new BananaPhone 4000 just dropped. Buy the newest smartphone and throw the cracked one in the trash.", bananas: 1, response: "Did you know that Americans throw away 151 million cell phones in a single year, or roughly 416,000 phones per day?" },
-            { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "Nice! It's just screen damage so this is a great way to preserve your phone's lifepsan." },
+            { text: "Great timing, the new BananaPhone 4000 just dropped. Buy the newest smartphone and throw the cracked one in the trash.", bananas: 1, response: "Even though a new phone may be tempting, a cracked screen does not make the phone unusable. Next time, consider the effects of replacing a device too soon may have on the environment. Did you know that Americans throw away 151 million cell phones in a single year, or roughly 416,000 phones per day?" },
+            { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "Great choice! Just because your phone is cracked does not mean it doesn’t work. Repairing the phone instead of buying a new one limits your environmental footprint!" },
             { text: "I’ve been due for an upgrade anyway! Trade in the cracked phone for some credit towards a new phone.", bananas: 4, response: "A cracked screen doesn't always mean you need a new phone! Repairing your device can help extend its lifespan and avoid the environmental cost of producing a replacement." },
             { text: "My brother might be old enough to have a phone now. This can be his first! Repair it and gift it to your little brother and then get yourself a refurbished newer phone.", bananas: 3, response: "Great job at finding a way to extend your phone's lifepsan and opting for a refurbished phone over a new one. This reduces a lot more e-waste in the longrun than you think, with this mindset." }
         ]
@@ -130,10 +130,10 @@ const questions = [
             "I just graduated and moved into my first apartment. However, while assembling my new lamp, I put the lightbulbs in wrong and now they’re all out. This is bananas! How do you dispose of these lightbulbs?",
 
         answers: [
-            { text: "I’m sure they can just go in the regular recycling… Crush the light bulbs and throw them in your recycling.", bananas: 1, response: "These type of lightbulbs are actually not supposed to be dumped into the recycling bin. Next time take it to your nearest hazardous waste collection facility." },
-            { text: "I’m too tired to deal with it right now. I’ll just leave it out for tomorrow.", bananas: 1, response: "You might forget tomorrow, letting this basically to become more waste as it is improperly disposed of." },
+            { text: "I’m sure they can just go in the regular recycling… Crush the light bulbs and throw them in your recycling.", bananas: 1, response: "NO! Certain lightbulbs contain dangerous chemicals that need to be disposed of properly. Ensure you research what type of lightbulbs you have and how to dispose of them properly!" },
+            { text: "I’m too tired to deal with it right now. I’ll just leave it out for tomorrow.", bananas: 1, response: "Not bad! This doesn’t harm the environment in any way, however, you will still have to dispose of them in the future." },
             { text: "These are compact fluorescent lights, which means they could be releasing mercury!! Immediately take the lightbulbs to a nearby hazardous waste collection facility such as Home Depot, IKEA, or Lowes.", bananas: 4, response: "Amazing choice! This allows the lightbulbs to be properly disposed of." },
-            { text: "I should contain any toxic chemicals coming from this broken bulb. Seal them in an airtight container and drop it off at a recycling site.", bananas: 3, response: "Good thinking on getting these to a recycling site that might know how to handle e-waste with toxic stuff in them." }
+            { text: "I should contain any toxic chemicals coming from this broken bulb. Seal them in an airtight container and drop it off at a recycling site.", bananas: 3, response: "Great choice! Disposing of lightbulbs properly is essential to limiting bad materials infecting our environment!" }
         ]
     },
 

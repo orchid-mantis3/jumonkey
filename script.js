@@ -80,8 +80,8 @@ const questions = [
         answers: [
             { text: "new laptop", bananas: 2, response: "Producing just one computer consumes 239kg of fossil fuel, 22kg of chemicals, and 1.5 tons of water." },
             { text: "refurbished laptop", bananas: 4, response: "Opting for a refurbished alternative rather than a brand new piece of technology also helps the environment more than you think" },
-            { text: "iPad with a keyboard acessory", bananas: 3, response: "[ADD TEXT]" },
-            { text: "desktop/pc", bananas: 1, response: "[ADD TEXT]" }
+            { text: "iPad with a keyboard acessory", bananas: 3, response: "Opting for a devices that can serve you multiple purposes for school work is a good choice!" },
+            { text: "desktop/pc", bananas: 1, response: "Producing just one computer consumes 239kg of fossil fuel, 22kg of chemicals, and 1.5 tons of water." }
         ]
     },
     // have this only show if the player bought a laptop
@@ -94,7 +94,7 @@ const questions = [
             { text: "I need it! Trade in my current phone to buy the newest phone ", bananas: 2, response: "Just because everyone has a new device doesn't mean you need one. Making the most of what you already own can reduce the environmental impact of electronics." },
             { text: "I deserve at least a small upgrade! Buy a refurbished version of last year’s phone model and properly dispose of the old phone", bananas: 1, response: "Just because everyone has a new device doesn't mean you need one. Making the most of what you already own can reduce the environmental impact of electronics." },
             { text: "I can afford it. Buy the newest phone for personal use and keep the old one for games", bananas: 1, response: "Just because everyone has a new device doesn't mean you need one. Making the most of what you already own can reduce the environmental impact of electronics." },
-            { text: "My phone is fine. I don’t need to buy a new one", bananas: 4, response: "[ADD TEXT]" }
+            { text: "My phone is fine. I don’t need to buy a new one", bananas: 4, response: "Right on! There's no need to replace your phone if it works fine." }
         ],
     },
 
@@ -105,9 +105,9 @@ const questions = [
 
         answers: [
             { text: "Great timing, the new BananaPhone 4000 just dropped. Buy the newest smartphone and throw the cracked one in the trash.", bananas: 1, response: "Did you know that Americans throw away 151 million cell phones in a single year, or roughly 416,000 phones per day?" },
-            { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "[ADD TEXT]" },
-            { text: "I’ve been due for an upgrade anyway! Trade in the cracked phone for some credit towards a new phone.", bananas: 4, response: "[ADD TEXT]" },
-            { text: "My brother might be old enough to have a phone now. This can be his first! Repair it and gift it to your little brother and then get yourself a refurbished newer phone.", bananas: 3, response: "[ADD TEXT]" }
+            { text: "It’s just a small crack. All it needs is a quick fix. Repair the phone", bananas: 4, response: "Nice! It's just screen damage and this is a great way to preserve your phone's lifepsan." },
+            { text: "I’ve been due for an upgrade anyway! Trade in the cracked phone for some credit towards a new phone.", bananas: 4, response: "A cracked screen doesn't always mean you need a new phone! Repairing your device can help extend its lifespan and avoid the environmental cost of producing a replacement." },
+            { text: "My brother might be old enough to have a phone now. This can be his first! Repair it and gift it to your little brother and then get yourself a refurbished newer phone.", bananas: 3, response: "Great job at finding a way to extend your phone's lifepsan and opting for a refurbished phone over a new one. This reduces a lot more e-waste in the longrun than you think, with this mindset." }
         ]
     },
     

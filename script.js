@@ -117,9 +117,9 @@ const questions = [
             "I have a drawing assignment for my class due in a couple weeks! Having the newest ULTRAColor Display tablet would make this assignment so easy! ",
 
         answers: [
-            { text: "It’s so colorful!! Buy the newest ULTRAColor display tablet. ", bananas: 1, response: "If you buy this tablet and it is uneeded for any other assignments, you are increasing the amount of e-waste you are outputting." },
+            { text: "It’s so colorful!! Buy the newest ULTRAColor display tablet. ", bananas: 1, response: "If you buy this tablet and it is uneeded for any other assignments, you are increasing the amount of e-waste you are outputting. Instead, consider borrowing your roommate's tablet instead of buying a new one." },
             { text: "My roommate has a pretty good tablet. I’m sure I could ask him to borrow it for a day. Borrow your friend’s tablet for a day.", bananas: 4, response: "Great way to reduce the amount of e-waste in the world! Who knows how often you will need that tablet in the future if you were to buy a new tablet!" },
-            { text: "I don’t need the best of the best, but having a tablet would be nice. Buy a refurbished tablet that will last you for the rest of your time at college.", bananas: 2, response: "This is a better alternative to just buying a brand new tablet." },
+            { text: "I don’t need the best of the best, but having a tablet would be nice. Buy a refurbished tablet that will last you for the rest of your time at college.", bananas: 2, response: "This is a better alternative to just buying a brand new tablet but next time instead consider borrowing your roommate's tablet instead of buying a new one." },
             { text: "The assignment never said it had to be digital… Use pen and paper.", bananas: 4, response: "Nice! There's no need for a brand new device just for one assignment." }
         ]
     },
@@ -161,7 +161,7 @@ const endings = [
         minBananas: 19,
         title: "Good Ending",
         text:
-            "Wow, {name}! Your family lives on for multiple generations. Go into stats of goals to reduce e-waste and pollution and how that relates to global warming. The rainforests thrive because soil and runoff water stays uncontaminated. It's not too late to make a difference. Link to resources and infographic"
+            "Wow, {name}! Your family lives on for multiple generations, learning from your e-waste disposal habits, leading to a great global decrease in e-waste!! Go into stats of goals to reduce e-waste and pollution and how that relates to global warming. The rainforests thrive because soil and runoff water stays uncontaminated. It's not too late to make a difference. Link to resources and infographic"
     },
     {
         minBananas: 13,

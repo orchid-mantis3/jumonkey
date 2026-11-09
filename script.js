@@ -117,10 +117,10 @@ const questions = [
             "I have a drawing assignment for my class due in a couple weeks! Having the newest ULTRAColor Display tablet would make this assignment so easy! ",
 
         answers: [
-            { text: "It’s so colorful!! Buy the newest ULTRAColor display tablet. ", bananas: 1, response: "[ADD TEXT]" },
-            { text: "My roommate has a pretty good tablet. I’m sure I could ask him to borrow it for a day. Borrow your friend’s tablet for a day.", bananas: 4, response: "[ADD TEXT]" },
-            { text: "I don’t need the best of the best, but having a tablet would be nice. Buy a refurbished tablet that will last you for the rest of your time at college.", bananas: 2, response: "[ADD TEXT]" },
-            { text: "The assignment never said it had to be digital… Use pen and paper.", bananas: 4, response: "[ADD TEXT]" }
+            { text: "It’s so colorful!! Buy the newest ULTRAColor display tablet. ", bananas: 1, response: "If you buy this tablet and it is uneeded for any other assignments, you are increasing the amount of e-waste you are outputting." },
+            { text: "My roommate has a pretty good tablet. I’m sure I could ask him to borrow it for a day. Borrow your friend’s tablet for a day.", bananas: 4, response: "Great way to reduce the amount of e-waste in the world! Who knows how often you will need that tablet in the future!" },
+            { text: "I don’t need the best of the best, but having a tablet would be nice. Buy a refurbished tablet that will last you for the rest of your time at college.", bananas: 2, response: "This is a better alternative to just buying a brand new tablet." },
+            { text: "The assignment never said it had to be digital… Use pen and paper.", bananas: 4, response: "Nice! There's no need for a brand new device just for one assignment." }
         ]
     },
 
@@ -130,10 +130,10 @@ const questions = [
             "I just graduated and moved into my first apartment. However, while assembling my new lamp, I put the lightbulbs in wrong and now they’re all out. This is bananas! How do you dispose of these lightbulbs?",
 
         answers: [
-            { text: "I’m sure they can just go in the regular recycling… Crush the light bulbs and throw them in your recycling.", bananas: 1, response: "[ADD TEXT]" },
-            { text: "I’m too tired to deal with it right now. I’ll just leave it out for tomorrow.", bananas: 1, response: "[ADD TEXT]" },
-            { text: "These are compact fluorescent lights, which means they could be releasing mercury!! Immediately take the lightbulbs to a nearby hazardous waste collection facility such as Home Depot, IKEA, or Lowes.", bananas: 4, response: "[ADD TEXT]" },
-            { text: "I should contain any toxic chemicals coming from this broken bulb. Seal them in an airtight container and drop it off at a recycling site.", bananas: 3, response: "[ADD TEXT]" }
+            { text: "I’m sure they can just go in the regular recycling… Crush the light bulbs and throw them in your recycling.", bananas: 1, response: "These type of lightbulbs are actually not supposed to be dumped into the recycling bin. Next time take it to your nearest hazardous waste collection facility." },
+            { text: "I’m too tired to deal with it right now. I’ll just leave it out for tomorrow.", bananas: 1, response: "You might forget tomorrow, letting this basically to become more waste as it is improperly disposed of." },
+            { text: "These are compact fluorescent lights, which means they could be releasing mercury!! Immediately take the lightbulbs to a nearby hazardous waste collection facility such as Home Depot, IKEA, or Lowes.", bananas: 4, response: "Amazing choice! This allows the lightbulbs to be properly disposed of." },
+            { text: "I should contain any toxic chemicals coming from this broken bulb. Seal them in an airtight container and drop it off at a recycling site.", bananas: 3, response: "Good thinking on getting these to a recycling site that might know how to handle e-waste with toxic stuff in them." }
         ]
     },
 
@@ -143,10 +143,10 @@ const questions = [
             "I graduated college and got a job! The company provided me a brand new laptop to keep. What should I do with my old one that I used during college?",
 
         answers: [
-            { text: "Who needs that junk anymore? I just got the newest Macnana laptop! Throw your old laptop in the landfill.", bananas: 1, response: "[ADD TEXT]" },
-            { text: "This still has valuable resources in it! Take it to a certified electronic recycler.", bananas: 3, response: "[ADD TEXT]" },
-            { text: "My brother will be going to college soon and will need to start shopping for laptops. I can give him this instead of him buying a new one. Give the laptop to your little brother.", bananas: 4, response: "[ADD TEXT]" },
-            { text: "You never know when you’ll need this. Keep it in your closet as a backup. ", bananas: 2, response: "[ADD TEXT]" }
+            { text: "Who needs that junk anymore? I just got the newest Macnana laptop! Throw your old laptop in the landfill.", bananas: 1, response: "Your broken laptop still contains valuable materials. Taking it to a certified electronics recycler helps recover resources and prevents improper disposal." },
+            { text: "This still has valuable resources in it! Take it to a certified electronic recycler.", bananas: 3, response: "This is a great way at repurposing the materials in your laptop!" },
+            { text: "My brother will be going to college soon and will need to start shopping for laptops. I can give him this instead of him buying a new one. Give the laptop to your little brother.", bananas: 4, response: "This is a great way to extend this laptop's lifespan and reducing overall e-waste!" },
+            { text: "You never know when you’ll need this. Keep it in your closet as a backup. ", bananas: 2, response: "How often do you think you will need this as a backup? Do the benefits of this choice outway maybe taking it to a certified electronics recycler to repurpose the stuff in your laptop?" }
         ]
     }
 

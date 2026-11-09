@@ -146,7 +146,7 @@ const questions = [
             { text: "Who needs that junk anymore? I just got the newest Macnana laptop! Throw your old laptop in the landfill.", bananas: 1, response: "Your broken laptop still contains valuable materials. Taking it to a certified electronics recycler helps recover resources and prevents improper disposal." },
             { text: "This still has valuable resources in it! Take it to a certified electronic recycler.", bananas: 3, response: "This is a great way at repurposing the materials in your laptop!" },
             { text: "My brother will be going to college soon and will need to start shopping for laptops. I can give him this instead of him buying a new one. Give the laptop to your little brother.", bananas: 4, response: "This is a great way to extend this laptop's lifespan and reducing overall e-waste!" },
-            { text: "You never know when you’ll need this. Keep it in your closet as a backup. ", bananas: 2, response: "How often do you think you will need this as a backup? Do the benefits of this choice outway maybe taking it to a certified electronics recycler to repurpose the stuff in your laptop?" }
+            { text: "You never know when you’ll need this. Keep it in your closet as a backup. ", bananas: 2, response: "Not bad! This doesn’t harm the environment in any way, however, you will still have to dispose of them in the future." }
         ]
     }
 

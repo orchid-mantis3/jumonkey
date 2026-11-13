@@ -1354,10 +1354,19 @@ window.JumonkeyResults = (() => {
         document.getElementById("continue-button").focus();
     }
 
+    // Leaves cover the screen (jungle-wipe.js), the game resets underneath
+    // with the game's own initializeGame(), then the leaves part on the start screen.
     function playAgain() {
-        close();
-        initializeGame();
-        document.getElementById("start-button").focus();
+        const wipe = window.JumonkeyJungleWipe;
+        if (wipe && wipe.isRunning()) return;          // already on its way
+        stopNarration();                               // silence Read-to-Me right away
+
+        const reset = () => { close(); initializeGame(); };
+        const focusStart = () => document.getElementById("start-button").focus({ preventScroll: true });
+
+        if (wipe && wipe.run(reset, focusStart)) return;
+        reset();                                       // no wipe available: restart at once
+        focusStart();
     }
 
     return {

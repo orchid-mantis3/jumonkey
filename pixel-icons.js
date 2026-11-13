@@ -397,6 +397,30 @@ window.JumonkeyPixels = (() => {
             "...BB...",
             "..BBBB.."
         ],
+        // big outlined leaf (stem on the left), used by the Play Again jungle wipe
+        jungleLeaf: [
+            "..........KKKKK.........",
+            "......KKKKgggggKKKK.....",
+            "....KKggggggggggggKKK...",
+            "..KKggGggggGggggGgggKK..",
+            ".KgggggGggggGggggGgggKK.",
+            "KBBBBBBBGGGGGGGGGGGGGGGK",
+            ".KgggggGggggGggggGgggKK.",
+            "..KKggGggggGggggGgggKK..",
+            "....KKggggggggggggKKK...",
+            "......KKKKgggggKKKK.....",
+            "..........KKKKK........."
+        ],
+        jungleBush: [
+            "......KKKK....KKK.......",
+            "...KKKggggKKKKgggKK.....",
+            "..KgggggGgggggggggKKKK..",
+            ".KggGggggggGggggGggggggK",
+            "KgggggggGgggggggggGggggK",
+            "KggGggggggggGgggggggGggK",
+            "KGGGGGGGGGGGGGGGGGGGGGGK",
+            ".KKKKKKKKKKKKKKKKKKKKKK."
+        ],
         leaf: [
             ".g.",
             "ggg",

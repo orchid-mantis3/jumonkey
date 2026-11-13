@@ -38,7 +38,7 @@
     background: var(--banana);
     box-shadow: 0 0 0 3px var(--dark-brown);
     color: var(--dark-brown);
-    font-family: 'Pixelify Sans', 'Fredoka', sans-serif;
+    font-family: 'VT323', 'Pixelify Sans', 'Fredoka', sans-serif;
     font-size: 16px;
     font-weight: 700;
     pointer-events: none;
@@ -157,7 +157,7 @@
 
 /* ---------- banana counter: bigger number + "+N" pop ---------- */
 #banana-total {
-    font-family: 'Pixelify Sans', 'Fredoka', sans-serif;
+    font-family: 'VT323', 'Pixelify Sans', 'Fredoka', sans-serif;
     font-size: 26px !important;
     line-height: 1;
 }
@@ -169,7 +169,7 @@
     left: calc(100% + 20px);
     top: 50%;
     margin-top: -14px;
-    font-family: 'Pixelify Sans', 'Fredoka', sans-serif;
+    font-family: 'VT323', 'Pixelify Sans', 'Fredoka', sans-serif;
     font-size: 24px;
     font-weight: 700;
     color: var(--dark-brown);

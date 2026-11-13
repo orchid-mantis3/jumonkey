@@ -1,0 +1,299 @@
+/* =====================================================================
+   Jumonkey — kid-friendly gameplay tweaks
+   Loaded after style.css and only adds/overrides a few rules, so the
+   art direction stays the same. New elements use the "ku-" prefix.
+===================================================================== */
+
+/* ---------- answer buttons: bigger, easier to read and tap ---------- */
+
+/* a little wider (matches dialogueMaxWidth in script.js) so all four answers fit */
+#question-box {
+    width: min(780px, calc(100% - 36px));
+}
+
+#question-box #answer-options {
+    gap: 12px;
+}
+
+/* 2 x 2 answer cards when there's room; one column on narrow screens */
+@media (min-width: 720px) {
+    #question-box #answer-options {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: stretch;
+    }
+    #question-box #answer-options button { height: calc(100% - 6px); }
+    #question-box #name-input { grid-column: 1 / -1; }
+}
+
+/* "More" cue when the box has more to scroll (set by kid-ui.js) */
+#question-box.ku-more::before {
+    content: "More \25BC";
+    position: absolute;
+    left: 50%;
+    bottom: 8px;
+    z-index: 3;
+    transform: translateX(-50%);
+    padding: 2px 12px;
+    background: var(--banana);
+    box-shadow: 0 0 0 3px var(--dark-brown);
+    color: var(--dark-brown);
+    font-family: 'VT323', 'Pixelify Sans', 'Fredoka', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    pointer-events: none;
+    animation: ku-more 1.2s ease-in-out infinite;
+}
+
+@keyframes ku-more {
+    0%, 100% { transform: translate(-50%, 0); }
+    50%      { transform: translate(-50%, 3px); }
+}
+
+#question-box #answer-options button {
+    min-height: 54px;
+    padding: 12px 16px;
+    font-size: 17px;
+    line-height: 1.35;
+}
+
+/* after choosing: the picked answer stands out (tick + colour), others fade */
+#question-box #answer-options button:disabled:not(.chosen) {
+    opacity: 0.5;
+}
+
+#question-box #answer-options button.chosen {
+    position: relative;
+    padding-right: 48px;
+}
+
+#question-box #answer-options button.chosen::after {
+    content: "✓";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--dark-brown);
+}
+
+/* feedback: a little more breathing room */
+#feedback {
+    font-size: 16px;
+    line-height: 1.55;
+}
+
+/* Continue: bigger and obvious */
+#continue-button {
+    min-height: 54px;
+    padding: 12px 24px;
+    font-size: 19px;
+}
+
+/* keyboard focus is always visible */
+#game-area button:focus-visible,
+#name-input:focus-visible {
+    outline: 4px solid var(--dark-brown);
+    outline-offset: 4px;
+}
+
+/* the box never runs off the top of the screen: its text scrolls inside instead.
+   (The scroll is on the inner content so the bubble tail and flowers aren't clipped.)
+   290px = where script.js places the box above the monkey; 84px = room for the HUD; 48px = box padding */
+#question-box .dialogue-content {
+    max-height: calc(100vh - 290px - 84px - 48px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 4px;
+    margin: -4px;
+}
+
+/* narrower screens: the wide box can reach the HUD corners, so leave the HUD's full height */
+@media (max-width: 1200px) {
+    #question-box .dialogue-content {
+        max-height: calc(100vh - 290px - 122px - 48px);
+    }
+}
+
+/* short screens (phones sideways, small laptops): sit at the bottom over the monkey */
+@media (max-height: 720px) {
+    #question-box {
+        bottom: 12px !important;
+    }
+    /* 130px keeps the box below the banana HUD */
+    #question-box .dialogue-content {
+        max-height: calc(100vh - 130px - 48px);
+    }
+    #question-box::after { display: none; }
+}
+
+/* very short screens (phones sideways): smaller HUD so the box has room */
+@media (max-height: 500px) {
+    #game-hud { top: 8px; }
+    #banana-count .banana-small { width: 34px; height: 34px; }
+    #question-box .dialogue-content {
+        max-height: calc(100vh - 84px - 40px);
+    }
+    #question-box { padding: 16px 20px; }
+}
+
+/* ---------- scenario picture next to the title ---------- */
+.ku-scene-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    padding: 4px;
+    background: var(--light-cream);
+    box-shadow:
+        0 -3px 0 0 var(--dark-brown),
+        0 3px 0 0 var(--dark-brown),
+        -3px 0 0 0 var(--dark-brown),
+        3px 0 0 0 var(--dark-brown);
+    margin: 3px;
+}
+
+.ku-scene-icon svg { display: block; width: 100%; height: 100%; }
+
+/* ---------- banana counter: bigger number + "+N" pop ---------- */
+#banana-total {
+    font-family: 'VT323', 'Pixelify Sans', 'Fredoka', sans-serif;
+    font-size: 26px !important;
+    line-height: 1;
+}
+
+#banana-count { position: relative; }
+
+.ku-pop {
+    position: absolute;
+    left: calc(100% + 20px);
+    top: 50%;
+    margin-top: -14px;
+    font-family: 'VT323', 'Pixelify Sans', 'Fredoka', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark-brown);
+    text-shadow: 2px 2px 0 var(--banana);
+    pointer-events: none;
+    animation: ku-pop 1.2s ease-out forwards;
+}
+
+.ku-bump { animation: ku-bump 0.45s ease-out; }
+
+@keyframes ku-pop {
+    0%   { opacity: 0; transform: translateY(6px) scale(0.8); }
+    20%  { opacity: 1; transform: translateY(0) scale(1.15); }
+    100% { opacity: 0; transform: translateY(-34px) scale(1); }
+}
+
+@keyframes ku-bump {
+    0%, 100% { transform: scale(1); }
+    40%      { transform: scale(1.18); }
+}
+
+/* ---------- progress dots ---------- */
+.ku-dots {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 6px;
+}
+
+.ku-dots i {
+    width: 12px;
+    height: 12px;
+    background: var(--light-cream);
+    box-shadow: 0 0 0 2px var(--dark-brown);
+}
+
+.ku-dots i.is-done { background: var(--banana); }
+
+/* ---------- walk buttons ---------- */
+.ku-controls {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 12;
+
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.ku-walk {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    padding: 16px;
+
+    background: var(--light-cream);
+    border: 0;
+    box-shadow:
+        0 -4px 0 0 var(--dark-brown),
+        0 4px 0 0 var(--dark-brown),
+        -4px 0 0 0 var(--dark-brown),
+        4px 0 0 0 var(--dark-brown),
+        inset 0 -5px 0 0 var(--panel-green-dark, #C9AE80);
+    margin: 4px;
+
+    color: var(--dark-brown);
+    cursor: pointer;
+    pointer-events: auto;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    opacity: 0.92;
+}
+
+.ku-walk svg { display: block; width: 100%; height: 100%; fill: currentColor; }
+
+.ku-walk:hover { background: #fff; }
+.ku-walk.is-down { background: var(--banana); transform: translateY(2px); }
+
+.ku-walk-hint {
+    position: absolute;
+    right: 0;
+    bottom: calc(100% + 14px);
+    padding: 6px 10px;
+    white-space: nowrap;
+    background: var(--light-cream);
+    box-shadow: 0 0 0 3px var(--dark-brown);
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    display: none;
+}
+
+.ku-walk.ku-nudge .ku-walk-hint { display: block; }
+.ku-walk.ku-nudge { animation: ku-nudge 1.4s ease-in-out infinite; }
+
+@keyframes ku-nudge {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(6px); }
+}
+
+/* ---------- phones ---------- */
+@media (max-width: 600px) {
+    #question-box #answer-options button {
+        font-size: 16px;
+        padding: 11px 13px;
+        min-height: 50px;
+    }
+    #question-box #answer-options button.chosen { padding-right: 42px; }
+    #feedback { font-size: 15px; }
+    #banana-count .banana-small { width: 28px; height: 28px; }
+    #banana-total { font-size: 22px !important; }
+    .ku-walk { width: 64px; height: 64px; padding: 14px; }
+    .ku-scene-icon { width: 38px; height: 38px; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .ku-pop,
+    .ku-bump,
+    .ku-walk.ku-nudge,
+    #question-box.ku-more::before { animation: none !important; }
+    .ku-pop { display: none; }
+}

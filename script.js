@@ -23,7 +23,7 @@ const playerSpeed = 250;
 const playerHeight = 180;
 const playerBottom = 100;   
 const dialogueGap = 10;     
-const dialogueMaxWidth = 640; 
+const dialogueMaxWidth = 780; // wide enough for a 2x2 grid of answers (kid-ui.css)
 
 // player posit.
 let playerX = 100;
@@ -614,6 +614,12 @@ continueButton.addEventListener("click", () => {
         return;
     }
 
+    // results dashboard (results-dashboard.js); it has its own Play Again
+    if (gameFinished && window.JumonkeyResults) {
+        window.JumonkeyResults.open();
+        return;
+    }
+
     // replay
     if (gameFinished) {
         initializeGame();
@@ -662,7 +668,7 @@ function finishGame() {
         feedback.textContent =
             `🍌 You collected ${collectedBananas} of ${maxBananas} bananas!`;
 
-        continueButton.textContent = "Play Again";
+        continueButton.textContent = window.JumonkeyResults ? "See my jungle! →" : "Play Again";
         continueButton.classList.remove("hidden");
     });
 

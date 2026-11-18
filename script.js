@@ -193,7 +193,7 @@ const endings = [
         minBananas: 19,
         title: "Good Ending",
         text:
-            "Wow, {name}! Your family lives on for multiple generations, learning from your e-waste disposal habits, leading to a great global decrease in e-waste!! Go into stats of goals to reduce e-waste and pollution and how that relates to global warming. The rainforests thrive because soil and runoff water stays uncontaminated. It's not too late to make a difference. Link to resources and infographic"
+            "Wow, {name}! Your family lives on for multiple generations, learning from your e-waste disposal habits, leading to a great global decrease in e-waste!! Click 'My Journey' to read more about your impact!"
     },
     {
         minBananas: 13,

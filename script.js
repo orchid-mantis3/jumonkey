@@ -59,9 +59,41 @@ let lastTime = 0;
 let walkFrame = 0;
 let walkTimer = 0;
 
-// CHECKPOINT LOCATIONS
-// One checkpoint per question (6 questions)
-const checkpoints = [500, 1000, 1500, 2000, 2400, 2800];
+// where the monkey's feet touch the ground (raise to lift buildings, lower to sink them)
+const groundLevel = 85;
+
+// locations
+const locations = [
+    { x: 1500,  src: "assets/buildings/school.png", scale: 1},      
+    { x: 2000 },                                                      
+    { x: 3000, src: "assets/buildings/apartment.png", height: 500 },
+    { x: 4200 },                                                 
+    { x: 5000, src: "assets/buildings/apartment2.png", height: 500 }, 
+    { x: 6200, src: "assets/buildings/ewaste.png", height: 500 }   
+];
+
+// checkpoint starts at x, then moves to the building's door once the image loads
+const checkpoints = locations.map((loc) => loc.x);
+
+locations.forEach((loc, index) => {
+    if (!loc.src) return;
+
+    const img = document.createElement("img");
+
+    img.src = loc.src;
+    img.className = "building";
+    img.style.left = `${loc.x}px`;
+    img.style.bottom = `${groundLevel + (loc.y || 0)}px`;
+
+    // centers the checkpoint on the building (the door), based on its real width
+    img.addEventListener("load", () => {
+        const width = img.naturalWidth * (loc.height / img.naturalHeight);
+        checkpoints[index] = loc.x + width / 2 - playerWidth / 2;
+    });
+
+    // puts building behind the player
+    world.insertBefore(img, player);
+});
 
 // =====================================
 // QUESTIONS

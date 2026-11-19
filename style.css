@@ -679,3 +679,81 @@ body {
 @media (max-width: 600px) {
     #banana-count .banana-small { width: 14px; height: 14px; }
 }
+
+/* buildings (positioned by script.js) */
+.building {
+    position: absolute;
+    z-index: 1;               /* behind the monkey */
+    max-width: none;          /* stops other css from shrinking them */
+    image-rendering: pixelated;
+    pointer-events: none;
+    user-select: none;
+}
+
+#interior {
+    position: absolute;
+    inset: 0;
+    z-index: 15;                /* above the banana hud (10), below the textbox (20) */
+
+    background-color: #000;     /* black everywhere except the room */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;   /* whole room visible, black bars around it */
+    image-rendering: pixelated;
+}
+
+#interior-player {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;   /* keeps his proportions */
+    image-rendering: pixelated;
+}
+
+#fade {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+
+#fade.on {
+    opacity: 1;
+}
+
+/* other characters (positioned by script.js) */
+.character {
+    position: absolute;
+    z-index: 2;               /* behind the monkey, in front of buildings */
+    object-fit: contain;
+    image-rendering: pixelated;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* credits (start screen) */
+.credits {
+    margin-top: 16px;
+    text-align: left;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.credits summary {
+    cursor: pointer;
+    text-align: center;
+    font-weight: 800;
+    color: var(--brown);
+}
+
+.credits p {
+    margin-top: 8px;
+}
+
+.credits a {
+    color: var(--dark-brown);
+    text-decoration: underline;
+}

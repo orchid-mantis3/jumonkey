@@ -17,13 +17,14 @@ const progress = document.getElementById("progress");
 const bananaTotal = document.getElementById("banana-total");
 
 // settings
-const worldWidth = 3000;
 const playerWidth = 180;
 const playerSpeed = 250;
 const playerHeight = 180;
 const playerBottom = 100;   
 const dialogueGap = 10;     
 const dialogueMaxWidth = 780; // wide enough for a 2x2 grid of answers (kid-ui.css)
+const worldWidth = 7500;
+world.style.width = `${worldWidth}px`;
 
 // player posit.
 let playerX = 100;
@@ -60,40 +61,178 @@ let walkFrame = 0;
 let walkTimer = 0;
 
 // where the monkey's feet touch the ground (raise to lift buildings, lower to sink them)
-const groundLevel = 85;
+const groundLevel = 170;
+const interior = document.getElementById("interior");
+const interiorPlayer = document.getElementById("interior-player");
+const fade = document.getElementById("fade");
 
-// locations
+// interior scene
+let inInterior = false;
+// curr room (used to place the player)
+let currentRoom = null;
+let currentSpot = null;
+
+// filler locations
+const fillers = [
+    { x: 2900, src: "assets/buildings/filler-building1.png", scale: 6 },
+    { x: 3700, src: "assets/buildings/filler-building2.png", scale: 6 },
+    { x: 6000, src: "assets/buildings/filler-building1.png", scale: 6 }
+];
+
+
+// locations of scenarios
 const locations = [
-    { x: 1500,  src: "assets/buildings/school.png", scale: 1},      
-    { x: 2000 },                                                      
-    { x: 3000, src: "assets/buildings/apartment.png", height: 500 },
-    { x: 4200 },                                                 
-    { x: 5000, src: "assets/buildings/apartment2.png", height: 500 }, 
-    { x: 6200, src: "assets/buildings/ewaste.png", height: 500 }   
+    { x: 800, src: "assets/buildings/school.png", scale: 4,
+        interior: "assets/buildings/interiors/classPLACEHOLDER.png",
+        interiorSpot: { x: 0.5, y: 0.618} },
+    { x: 2080, src: "assets/buildings/bakery.png", scale: 1,
+        characters: [
+            { src: "assets/characters/friend1.png", dx: 130, flip: true, row: "back" },
+            { src: "assets/characters/friend2.png", dx: 420, flip: true, row: "front" }
+    ]},
+    { x: 3300 },
+    { x: 4200, src: "assets/buildings/school.png", scale: 4 },
+    { x: 5500, src: "assets/buildings/apt-building.png", scale: 5,
+        interior: "assets/buildings/interiors/apt.png",
+        interiorSpot: { x: 0.5, y: 0.58 } },
+    { x: 6600, src: "assets/buildings/work.png", scale: 7,
+        interior: "assets/buildings/interiors/workPLACEHOLDER.png",
+        interiorSpot: { x: 0.5, y: 0.58 } }
 ];
 
 // checkpoint starts at x, then moves to the building's door once the image loads
 const checkpoints = locations.map((loc) => loc.x);
 
-locations.forEach((loc, index) => {
-    if (!loc.src) return;
+// puts a building in the world; onSized runs once its size is known
+function placeBuilding(loc, onSized) {
+    const img = new Image();
 
-    const img = document.createElement("img");
-
-    img.src = loc.src;
     img.className = "building";
     img.style.left = `${loc.x}px`;
     img.style.bottom = `${groundLevel + (loc.y || 0)}px`;
 
-    // centers the checkpoint on the building (the door), based on its real width
-    img.addEventListener("load", () => {
-        const width = img.naturalWidth * (loc.height / img.naturalHeight);
-        checkpoints[index] = loc.x + width / 2 - playerWidth / 2;
-    });
+    // sizes from the real image so the pixels stay even
+    function sizeBuilding() {
+        const width = img.naturalWidth * loc.scale;
+        const height = img.naturalHeight * loc.scale;
+
+        img.style.setProperty("width", `${width}px`, "important");
+        img.style.setProperty("height", `${height}px`, "important");
+        img.style.setProperty("max-width", "none", "important");
+
+        if (onSized) onSized(width);
+    }
+
+    img.addEventListener("load", sizeBuilding);
+    img.src = loc.src;
+
+    // in case the image was already cached
+    if (img.complete && img.naturalWidth) sizeBuilding();
 
     // puts building behind the player
     world.insertBefore(img, player);
+}
+
+// scenery
+fillers.forEach((loc) => placeBuilding(loc));
+
+// scenario buildings (checkpoint moves to the door once the image loads)
+locations.forEach((loc, index) => {
+    if (!loc.src) return;
+
+    placeBuilding(loc, (width) => {
+        checkpoints[index] = loc.x + width / 2 - playerWidth / 2;
+    });
 });
+
+// characters, placed relative to their location's x
+// row: "back" = higher up & behind the monkey (default), "front" = lower & in front of him
+locations.forEach((loc) => {
+    (loc.characters || []).forEach((ch) => {
+        const img = new Image();
+        const row = ch.row || "back";
+
+        // depth: back row is higher, smaller and behind; front row is lower, bigger and in front
+        const lift = ch.y !== undefined ? ch.y : (row === "back" ? 45 : -25);
+        const size = ch.size || playerWidth * (row === "back" ? 0.9 : 1.05);
+
+        img.className = "character";
+        img.src = ch.src;
+        img.style.left = `${loc.x + ch.dx}px`;
+        img.style.bottom = `${playerBottom + lift}px`;
+        img.style.width = `${size}px`;
+        img.style.height = `${size}px`;
+        img.style.zIndex = row === "back" ? "2" : "4";   // the monkey is 3
+
+        if (ch.flip) img.style.transform = "scaleX(-1)";
+        if (ch.filter) img.style.filter = ch.filter;
+
+        world.insertBefore(img, player);
+    });
+});
+
+// fades into an interior, then runs onReady
+// fades into an interior, then runs onReady
+function enterInterior(src, spot, onReady) {
+    fade.classList.add("on");
+
+    currentRoom = new Image();
+    currentRoom.src = src;
+    currentSpot = spot || { x: 0.5, y: 0.6 };
+
+    setTimeout(() => {
+        interior.style.backgroundImage = `url("${src}")`;
+        interior.classList.remove("hidden");
+        inInterior = true;
+
+        placeInteriorPlayer();
+
+        // in case the room picture hasn't finished loading yet
+        if (!currentRoom.complete) {
+            currentRoom.onload = placeInteriorPlayer;
+        }
+
+        fade.classList.remove("on");
+        setTimeout(onReady, 400);
+    }, 400);
+}
+
+// puts the monkey at the spot (x, y) on the room picture
+// x = horizontal center, y = where his feet are (0 to 1 across the picture)
+function placeInteriorPlayer() {
+    if (!currentRoom || !currentRoom.naturalWidth) return;
+
+    const boxW = interior.clientWidth;
+    const boxH = interior.clientHeight;
+
+    // the room picture is shown with "contain", so work out its real size on screen
+    const scale = Math.min(boxW / currentRoom.naturalWidth, boxH / currentRoom.naturalHeight);
+    const roomW = currentRoom.naturalWidth * scale;
+    const roomH = currentRoom.naturalHeight * scale;
+    const roomLeft = (boxW - roomW) / 2;
+    const roomTop = (boxH - roomH) / 2;
+
+    const feetX = roomLeft + roomW * currentSpot.x;
+    const feetY = roomTop + roomH * currentSpot.y;
+
+    interiorPlayer.style.transform = "none";
+    interiorPlayer.style.bottom = "auto";
+    interiorPlayer.style.left = `${feetX - interiorPlayer.offsetWidth / 2}px`;
+    interiorPlayer.style.top = `${feetY - interiorPlayer.offsetHeight}px`;
+}
+
+// fades back out to the world, then runs onDone
+function exitInterior(onDone) {
+    fade.classList.add("on");
+
+    setTimeout(() => {
+        interior.classList.add("hidden");
+        inInterior = false;
+
+        fade.classList.remove("on");
+        setTimeout(onDone, 400);
+    }, 400);
+}
 
 // =====================================
 // QUESTIONS
@@ -193,7 +332,7 @@ const endings = [
         minBananas: 19,
         title: "Good Ending",
         text:
-            "Wow, {name}! Your family lives on for multiple generations, learning from your e-waste disposal habits, leading to a great global decrease in e-waste!! Click 'My Journey' to read more about your impact!"
+            "Wow, {name}! Your family lives on for multiple generations, learning from your e-waste disposal habits, leading to a great global decrease in e-waste!! Click 'See My Jungle' to read more about your impact!"
     },
     {
         minBananas: 13,
@@ -286,7 +425,7 @@ function initializeGame() {
     walkTimer = 0;
 
     // reset player sprite
-    player.src = "assets/default.png";
+    player.src = "assets/characters/default.png";
     player.style.left = `${playerX}px`;
     player.style.transform = "scaleX(1)";
 
@@ -319,6 +458,10 @@ function initializeGame() {
     typingTimer = null;
     typingState = null;
 
+        // resets interior
+    interior.classList.add("hidden");
+    inInterior = false;
+
     questionTitle.textContent = "E-Waste Challenge!";
     questionText.textContent = "";
     answerOptions.innerHTML = "";
@@ -337,7 +480,7 @@ function stopPlayer() {
     walkTimer = 0;
     walkFrame = 0;
 
-    player.src = "assets/default.png";
+    player.src = "assets/characters/default.png";
 }
 
 // player anim.
@@ -345,7 +488,7 @@ function updatePlayerAnimation(deltaTime) {
     const isMoving = movingLeft || movingRight;
 
     if (!isMoving) {
-        player.src = "assets/default.png";
+        player.src = "assets/characters/default.png";
 
         walkTimer = 0;
         walkFrame = 0;
@@ -359,9 +502,9 @@ function updatePlayerAnimation(deltaTime) {
         walkFrame = walkFrame === 0 ? 1 : 0;
 
         if (walkFrame === 0) {
-            player.src = "assets/walk1.png";
+            player.src = "assets/characters/walk1.png";
         } else {
-            player.src = "assets/walk2.png";
+            player.src = "assets/characters/walk2.png";
         }
 
         walkTimer = 0;
@@ -422,25 +565,40 @@ function checkCheckpoints() {
 
 // positions textbox
 function positionQuestionBox() {
+    const areaRect = gameArea.getBoundingClientRect();
     const areaWidth = gameArea.clientWidth;
     const boxWidth = Math.min(dialogueMaxWidth, areaWidth - 36);
 
-    // player's horizontal center on screen
-    const playerCenter = playerX - cameraX + playerWidth / 2;
+    let playerCenter;
+    let boxBottom;
+
+    if (inInterior) {
+        // box goes over the monkey inside the room
+        const rect = interiorPlayer.getBoundingClientRect();
+
+        playerCenter = rect.left - areaRect.left + rect.width / 2;
+        boxBottom = areaRect.bottom - rect.top + dialogueGap;
+    } else {
+        // player's horizontal center on screen
+        playerCenter = playerX - cameraX + playerWidth / 2;
+        boxBottom = playerBottom + playerHeight + dialogueGap;
+    }
 
     // centers box over player, but keep it on screen
     let left = playerCenter - boxWidth / 2;
     left = Math.max(18, Math.min(left, areaWidth - boxWidth - 18));
 
     questionBox.style.left = `${left}px`;
-    questionBox.style.bottom = `${playerBottom + playerHeight + dialogueGap}px`;
+    questionBox.style.bottom = `${boxBottom}px`;
 
-    // pointer tail aims at the player
+    // ptr tail aims at the player
     const tailX = Math.max(36, Math.min(playerCenter - left, boxWidth - 36));
     questionBox.style.setProperty("--tail-x", `${tailX}px`);
 }
 
 window.addEventListener("resize", () => {
+    if (inInterior) placeInteriorPlayer();
+
     if (!questionBox.classList.contains("hidden")) {
         positionQuestionBox();
     }
@@ -566,10 +724,22 @@ function getActiveQuestion(index) {
     return base;
 }
 
-// display questions
+// display questions (enters the interior first if the location has one)
 function showQuestion(index) {
     gamePaused = true;
     stopPlayer();
+
+    const loc = locations[index];
+
+    if (loc.interior) {
+        enterInterior(loc.interior, loc.interiorSpot, () => openQuestion(index));
+    } else {
+        openQuestion(index);
+    }
+}
+
+// display questions
+function openQuestion(index) {
     const question = getActiveQuestion(index);
     activeQuestion = question;
 
@@ -658,17 +828,27 @@ continueButton.addEventListener("click", () => {
         return;
     }
 
-    // hides curr question
+        // hides curr question
     questionBox.classList.add("hidden");
-    currentCheckpoint++;
-    progress.textContent =
-        `ADVENTURE ${currentCheckpoint} / ${questions.length}`;
 
-    // checks if all questions are complete
-    if (currentCheckpoint >= questions.length) {
-        finishGame();
+    const next = () => {
+        currentCheckpoint++;
+        progress.textContent =
+            `ADVENTURE ${currentCheckpoint} / ${questions.length}`;
+
+        // checks if all questions are complete
+        if (currentCheckpoint >= questions.length) {
+            finishGame();
+        } else {
+            gamePaused = false;
+        }
+    };
+
+    // walks back out of the building first if inside
+    if (inInterior) {
+        exitInterior(next);
     } else {
-        gamePaused = false;
+        next();
     }
 });
 

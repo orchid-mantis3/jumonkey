@@ -30,10 +30,15 @@
             <div id="world">
                 <img
                     id="player"
-                    src="assets/default.png"
+                    src="assets/characters/default.png"
                     alt="Player character"
                 >
             </div>
+
+            <div id="interior" class="hidden">
+                <img id="interior-player" src="assets/characters/default.png" alt="">
+            </div>
+            <div id="fade"></div>
 
             <!-- Game HUD -->
             <div id="game-hud">
@@ -71,6 +76,24 @@
                 <button id="start-button">
                     Start Adventure!
                 </button>
+
+                <details class="credits">
+                    <summary>Credits</summary>
+
+                    <p><strong>Parallax backgrounds:</strong> "Parallax Backgrounds (Demo)" by The Pixel Nook,
+                    <a href="https://the-pixel-nook.itch.io/parallax-backgrounds-demo" target="_blank" rel="noopener">itch.io</a>,
+                    licensed under
+                    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
+                    Modified (resized and scrolled in-game).</p>
+
+                    <p><strong>Buildings:</strong> "City Tiles" by carchagui, from
+                    <a href="https://www.deviantart.com/carchagui/art/City-tiles-832293422" target="_blank" rel="noopener">deviantart.com</a> Used with the artist's permission; modified (resized and arranged).</p>
+
+                    <p><strong>Apartment interior:</strong> "Classic Furniture Set free" by 0_mem0ry,
+                    <a href="https://0-mem0ry.itch.io/classic-furniture-set-free" target="_blank" rel="noopener">itch.io</a></p>
+
+                    <p><strong>Fonts:</strong> Nunito, Fredoka and Pixelify Sans (Google Fonts, SIL Open Font License)</p>
+                </details>
 
                 <i class="spr tl" data-s="flowerPink"></i>
                 <i class="spr tr" data-s="flowerWhite"></i>

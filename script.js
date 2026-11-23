@@ -61,7 +61,18 @@ let walkFrame = 0;
 let walkTimer = 0;
 
 // where the monkey's feet touch the ground (raise to lift buildings, lower to sink them)
-const groundLevel = 170;
+const groundLevel = 170;   // only used as a fallback now (see placeBuilding)
+
+// The ground picture (4.Ground.png) is 180px tall and scales with the screen. These rows are where
+// the grass starts and where a building's base should sit, so buildings stay flush at any window size.
+const GROUND_IMG_H = 180;
+const GROUND_BASE_ROW = 144;     // building bottoms sit here (hidden behind the grass tufts)
+const GRASS_TOP_ROW = 128;       // the grass strip drawn in front of buildings starts here...
+const GRASS_BOTTOM_ROW = 152;    // ...and ends here
+
+// buildings are sized from their door: door height = this share of the monkey box, capped by screen share
+const DOOR_TO_MONKEY = 0.9;
+const MAX_BUILDING_FRAC = 0.78;
 const interior = document.getElementById("interior");
 const interiorPlayer = document.getElementById("interior-player");
 const fade = document.getElementById("fade");
@@ -83,7 +94,7 @@ const fillers = [
 // locations of scenarios
 const locations = [
     { x: 800, src: "assets/buildings/school.png", scale: 4,
-        interior: "assets/buildings/interiors/classPLACEHOLDER.png",
+        interior: "assets/buildings/interiors/class.png",
         interiorSpot: { x: 0.5, y: 0.618} },
     { x: 2080, src: "assets/buildings/bakery.png", scale: 1,
         characters: [
@@ -91,47 +102,94 @@ const locations = [
             { src: "assets/characters/friend2.png", dx: 420, flip: true, row: "front" }
     ]},
     { x: 3300 },
-    { x: 4200, src: "assets/buildings/school.png", scale: 4 },
+    { x: 4200, src: "assets/buildings/school.png", scale: 4,
+        interior: "assets/buildings/interiors/class.png",
+        interiorSpot: { x: 0.5, y: 0.618} },
     { x: 5500, src: "assets/buildings/apt-building.png", scale: 5,
         interior: "assets/buildings/interiors/apt.png",
         interiorSpot: { x: 0.5, y: 0.58 } },
     { x: 6600, src: "assets/buildings/work.png", scale: 7,
-        interior: "assets/buildings/interiors/workPLACEHOLDER.png",
-        interiorSpot: { x: 0.5, y: 0.58 } }
+        interior: "assets/buildings/interiors/work.png",
+        interiorSpot: { x: 0.5, y: 0.6 } }
 ];
 
 // checkpoint starts at x, then moves to the building's door once the image loads
 const checkpoints = locations.map((loc) => loc.x);
 
+// every building placed so far (so they can be re-fitted when the window changes size)
+const placedBuildings = [];
+
+// px per row of the ground picture at the current screen height
+function groundRowPx() {
+    return (world.clientHeight || gameArea.clientHeight) / GROUND_IMG_H;
+}
+
+// sizes a building from its picture, sets it on the ground, and lays the grass tufts in front of its base
+function fitBuilding(entry) {
+    const { loc, img, grass } = entry;
+    if (!img.naturalWidth) return;
+
+    const row = groundRowPx();
+    const screenH = world.clientHeight || gameArea.clientHeight;
+
+    // height is a share of the screen so buildings look the same size next to the monkey on any window,
+    // and they never poke out of the top of the screen
+    let scale;
+    if (loc.doorH) {
+        // to scale: a door is about as tall as the monkey (so he fits through it), but never taller than the screen allows
+        const monkeyH = (player.offsetHeight || 180) * DOOR_TO_MONKEY;
+        scale = Math.min(monkeyH / loc.doorH, (MAX_BUILDING_FRAC * screenH) / img.naturalHeight);
+    } else if (loc.heightFrac) {
+        scale = (loc.heightFrac * screenH) / img.naturalHeight;
+    } else {
+        scale = loc.scale;
+    }
+    const width = img.naturalWidth * scale;
+    const height = img.naturalHeight * scale;
+
+    img.style.setProperty("width", `${width}px`, "important");
+    img.style.setProperty("height", `${height}px`, "important");
+    img.style.setProperty("max-width", "none", "important");
+    img.style.bottom = `${(GROUND_IMG_H - GROUND_BASE_ROW) * row + (loc.y || 0)}px`;
+
+    // grass strip: the same grass as the ground layer, cut out and laid over the base of the building
+    const margin = 24;
+    grass.style.left = `${loc.x - margin}px`;
+    grass.style.width = `${width + margin * 2}px`;
+    grass.style.height = `${(GRASS_BOTTOM_ROW - GRASS_TOP_ROW) * row}px`;
+    grass.style.bottom = `${(GROUND_IMG_H - GRASS_BOTTOM_ROW) * row}px`;
+    grass.style.backgroundSize = `auto ${screenH}px`;
+    grass.style.backgroundPosition = `${-(loc.x - margin)}px ${-GRASS_TOP_ROW * row}px`;
+
+    if (entry.onSized) entry.onSized(width);
+}
+
 // puts a building in the world; onSized runs once its size is known
 function placeBuilding(loc, onSized) {
     const img = new Image();
+    const grass = document.createElement("div");
 
     img.className = "building";
+    if (loc.tint) img.style.filter = loc.tint;
     img.style.left = `${loc.x}px`;
     img.style.bottom = `${groundLevel + (loc.y || 0)}px`;
+    grass.className = "building-grass";
 
-    // sizes from the real image so the pixels stay even
-    function sizeBuilding() {
-        const width = img.naturalWidth * loc.scale;
-        const height = img.naturalHeight * loc.scale;
+    const entry = { loc, img, grass, onSized };
+    placedBuildings.push(entry);
 
-        img.style.setProperty("width", `${width}px`, "important");
-        img.style.setProperty("height", `${height}px`, "important");
-        img.style.setProperty("max-width", "none", "important");
-
-        if (onSized) onSized(width);
-    }
-
-    img.addEventListener("load", sizeBuilding);
+    img.addEventListener("load", () => fitBuilding(entry));
     img.src = loc.src;
 
     // in case the image was already cached
-    if (img.complete && img.naturalWidth) sizeBuilding();
+    if (img.complete && img.naturalWidth) fitBuilding(entry);
 
-    // puts building behind the player
+    // building goes behind the player, grass tufts in front of the building
     world.insertBefore(img, player);
+    world.insertBefore(grass, player);
 }
+
+window.addEventListener("resize", () => placedBuildings.forEach(fitBuilding));
 
 // scenery
 fillers.forEach((loc) => placeBuilding(loc));

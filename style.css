@@ -690,6 +690,16 @@ body {
     user-select: none;
 }
 
+/* grass tufts cut from the ground layer and drawn over each building's base, so it's planted in the ground */
+.building-grass {
+    position: absolute;
+    z-index: 2;               /* over the building, behind the monkey (3) and characters */
+    background-image: url("assets/environment/4.Ground.png");
+    background-repeat: repeat-x;
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
 #interior {
     position: absolute;
     inset: 0;

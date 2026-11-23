@@ -274,7 +274,7 @@ window.JumonkeyResults = (() => {
             <h2 id="jd-heading" class="jd-title" tabindex="-1">Your Jungle Score</h2>
             <p class="jd-sr">You earned ${r.total} of ${r.max} bananas. ${esc(tier.badge)}</p>
             <div class="jd-hero" aria-hidden="true">
-                <img class="jd-monkey jd-score-monkey jd-anim-watch" src="assets/default.png" alt="">
+                <img class="jd-monkey jd-score-monkey jd-anim-watch" src="assets/characters/default.png" alt="">
                 <div class="jd-confetti">${bananaRow(8)}</div>
                 <div class="jd-sparkles">${px("star").repeat(4)}</div>
             </div>
@@ -391,7 +391,7 @@ window.JumonkeyResults = (() => {
                 <div class="jd-layer jd-layer--ground"></div>
                 ${pieces}
                 <div class="jd-haze"></div>
-                <img class="jd-jungle-monkey jd-anim-bob" src="assets/default.png" alt="">
+                <img class="jd-jungle-monkey jd-anim-bob" src="assets/characters/default.png" alt="">
             </div>
             <div class="jd-jungle-info" aria-live="polite">
                 <span class="jd-info-icon">${px("sprout")}</span>
@@ -497,7 +497,7 @@ window.JumonkeyResults = (() => {
                         </div>
                     </div>
                     <p class="jd-says jd-pop-takeaway">
-                        <img src="assets/default.png" alt="">
+                        <img src="assets/characters/default.png" alt="">
                         <span></span>
                     </p>
                     ${READ_BUTTON}
@@ -585,23 +585,23 @@ window.JumonkeyResults = (() => {
     // the little scene for each habit; "done" state comes from CSS (.is-done)
     const LAB_SCENES = {
         reduce: () => `
-            <img class="jd-actor jd-lab-monkey" src="assets/default.png" alt="">
+            <img class="jd-actor jd-lab-monkey" src="assets/characters/default.png" alt="">
             <span class="jd-actor jd-a-phone">${px("phone")}</span>
             <span class="jd-actor jd-a-hearts">${px("heart").repeat(3)}</span>
             <span class="jd-actor jd-a-shop">${px("bag")}<span class="jd-a-label">New phone?</span>
                 <span class="jd-a-no" aria-hidden="true">✕</span></span>`,
         reuse: () => `
-            <img class="jd-actor jd-lab-monkey" src="assets/default.png" alt="">
-            <img class="jd-actor jd-lab-friend" src="assets/default.png" alt="">
+            <img class="jd-actor jd-lab-monkey" src="assets/characters/default.png" alt="">
+            <img class="jd-actor jd-lab-friend" src="assets/characters/default.png" alt="">
             <span class="jd-actor jd-a-tablet">${px("tablet")}</span>
             <span class="jd-actor jd-a-hearts jd-a-hearts--right">${px("heart").repeat(3)}</span>`,
         repair: () => `
-            <img class="jd-actor jd-lab-monkey" src="assets/default.png" alt="">
+            <img class="jd-actor jd-lab-monkey" src="assets/characters/default.png" alt="">
             <span class="jd-actor jd-a-phone jd-a-phone--center">${px("phoneCracked")}</span>
             <span class="jd-actor jd-a-wrench">${px("wrench")}</span>
             <span class="jd-actor jd-a-sparkle">${px("star").repeat(3)}</span>`,
         recycle: () => `
-            <img class="jd-actor jd-lab-monkey" src="assets/default.png" alt="">
+            <img class="jd-actor jd-lab-monkey" src="assets/characters/default.png" alt="">
             <span class="jd-actor jd-a-laptop">${px("laptopCap")}</span>
             <span class="jd-actor jd-a-bin">${px("bin")}<span class="jd-a-label">E-waste drop-off</span></span>
             <span class="jd-actor jd-a-sparkle jd-a-sparkle--bin">${px("star").repeat(3)}</span>`
@@ -817,7 +817,7 @@ window.JumonkeyResults = (() => {
         trucks: () => `
             <div class="jd-fact-stage jd-stage--trucks">
                 <span class="jd-road"></span>
-                <img class="jd-fact-monkey" src="assets/default.png" alt="">
+                <img class="jd-fact-monkey" src="assets/characters/default.png" alt="">
                 <span class="jd-wow" aria-hidden="true">!</span>
                 <div class="jd-trucks"></div>
                 <div class="jd-stage-count"><b class="jd-truck-n">0</b> trucks sent</div>
@@ -1126,14 +1126,14 @@ window.JumonkeyResults = (() => {
     const adult = (label, extra = "") => `
         <span class="jd-actor jd-adult ${extra}">
             <span class="jd-adult-cap">${px("cap")}</span>
-            <img src="assets/default.png" alt="">
+            <img src="assets/characters/default.png" alt="">
             <span class="jd-a-label">${label}</span>
         </span>`;
 
     const PROMISE_SCENES = {
         reduce: () => `
             <span class="jd-p-sign jd-p-sign--shop">Shop</span>
-            <img class="jd-actor jd-lab-monkey" src="assets/default.png" alt="">
+            <img class="jd-actor jd-lab-monkey" src="assets/characters/default.png" alt="">
             <span class="jd-actor jd-a-phone jd-p-phone">${px("phone")}</span>
             <span class="jd-actor jd-a-hearts">${px("heart").repeat(3)}</span>
             <span class="jd-actor jd-p-box">${px("newBox")}<span class="jd-a-label">New phone!</span></span>
@@ -1141,7 +1141,7 @@ window.JumonkeyResults = (() => {
         reuse: () => LAB_SCENES.reuse(),
         repair: () => `
             <span class="jd-p-sign">Repair Shop</span>
-            <img class="jd-actor jd-lab-monkey" src="assets/default.png" alt="">
+            <img class="jd-actor jd-lab-monkey" src="assets/characters/default.png" alt="">
             ${adult("Repair helper", "jd-adult--shop")}
             <span class="jd-actor jd-p-counter"></span>
             <span class="jd-actor jd-a-phone jd-p-fixphone">${px("phoneCracked")}</span>
@@ -1151,7 +1151,7 @@ window.JumonkeyResults = (() => {
             <span class="jd-p-sign jd-p-sign--recycle">Electronics Recycling Drop-off</span>
             <span class="jd-actor jd-a-bin jd-p-bin">${px("bin")}</span>
             <span class="jd-actor jd-p-walk">
-                <img class="jd-p-kid" src="assets/default.png" alt="">
+                <img class="jd-p-kid" src="assets/characters/default.png" alt="">
                 ${adult("Grown-up", "jd-adult--walk")}
                 <span class="jd-p-carry">${px("laptopCap")}</span>
             </span>
@@ -1177,7 +1177,7 @@ window.JumonkeyResults = (() => {
             <div class="jd-promises" role="group" aria-label="Pick one promise">${buttons}</div>
             <div class="jd-lab-stage jd-promise-stage">
                 <div class="jd-p-scene">
-                    <img class="jd-actor jd-lab-monkey jd-anim-bob" src="assets/default.png" alt="">
+                    <img class="jd-actor jd-lab-monkey jd-anim-bob" src="assets/characters/default.png" alt="">
                     <span class="jd-p-wait">Pick a promise above!</span>
                 </div>
                 <div class="jd-p-garden" aria-hidden="true">
@@ -1186,7 +1186,7 @@ window.JumonkeyResults = (() => {
                     <span class="jd-p-flower jd-p-flower--0">${px("flowerPink")}</span>
                     <span class="jd-p-flower jd-p-flower--1">${px("flowerWhite")}</span>
                     <span class="jd-p-flower jd-p-flower--2">${px("flowerPink")}</span>
-                    <img class="jd-p-hero" src="assets/default.png" alt="">
+                    <img class="jd-p-hero" src="assets/characters/default.png" alt="">
                     <div class="jd-confetti">${bananaRow(8)}</div>
                 </div>
             </div>
